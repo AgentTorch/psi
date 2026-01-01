@@ -91,7 +91,7 @@ Outputs:
 
 ## Analysis Notes
 
-A detailed discussion of the sensitivity analyses and interpretations of grokking dynamics—covering regularization strength, model size, task variation, and data coverage—is provided in [commentary.md](./commentary.md). This document serves as a companion analysis for readers interested in the underlying learning dynamics beyond code execution and reproduction.
+A detailed discussion of the sensitivity analyses and interpretations of grokking dynamics covering regularization strength, model size, task variation, and data coverage is provided in [commentary.md](./commentary.md). This document serves as a companion analysis for readers interested in the underlying learning dynamics beyond code execution and reproduction.
 
 ---
 
