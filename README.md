@@ -17,7 +17,7 @@ Train a simple MLP to learn modular addition: `(a + b) mod 97`
 
 ### Results
 
-![Grokking Results](grokking_results.png)
+![Grokking Results](results/plots/baseline.png)
 
 The model exhibits classic **grokking** behavior:
 - **Overfitting** (~epoch 400): Train accuracy reaches 99%, test accuracy near 0%
