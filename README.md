@@ -85,9 +85,8 @@ Runs four controlled sweeps:
    `[0.3, 0.5, 0.7, 0.9]`
 
 Outputs:
-- Per-sweep plots in `results/plots/`
+- Per-sweep plots in `results/plots/sweep_*.png`
 - Aggregated metrics in `results/summary.json`
-
 ---
 
 ## Analysis Notes
