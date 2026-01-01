@@ -1,0 +1,163 @@
+{
+  "Weight Decay": [
+    {
+      "weight_decay": 0.0,
+      "final_train_acc": 1.0,
+      "final_test_acc": 0.008501593954861164,
+      "grok_epoch": null,
+      "overfit_epoch": 300,
+      "delay": null
+    },
+    {
+      "weight_decay": 0.1,
+      "final_train_acc": 1.0,
+      "final_test_acc": 0.007013814989477396,
+      "grok_epoch": null,
+      "overfit_epoch": 300,
+      "delay": null
+    },
+    {
+      "weight_decay": 0.5,
+      "final_train_acc": 1.0,
+      "final_test_acc": 0.9906482696533203,
+      "grok_epoch": 4000,
+      "overfit_epoch": 300,
+      "delay": 3700
+    },
+    {
+      "weight_decay": 1.0,
+      "final_train_acc": 1.0,
+      "final_test_acc": 0.9995748996734619,
+      "grok_epoch": 2650,
+      "overfit_epoch": 350,
+      "delay": 2300
+    },
+    {
+      "weight_decay": 2.0,
+      "final_train_acc": 1.0,
+      "final_test_acc": 1.0,
+      "grok_epoch": 1250,
+      "overfit_epoch": 350,
+      "delay": 900
+    },
+    {
+      "weight_decay": 5.0,
+      "final_train_acc": 1.0,
+      "final_test_acc": 1.0,
+      "grok_epoch": 800,
+      "overfit_epoch": 500,
+      "delay": 300
+    }
+  ],
+  "Model Size": [
+    {
+      "hidden_dim": 32,
+      "num_params": 10497,
+      "final_train_acc": 1.0,
+      "final_test_acc": 1.0,
+      "grok_epoch": 1750,
+      "overfit_epoch": 1150,
+      "delay": 600
+    },
+    {
+      "hidden_dim": 64,
+      "num_params": 22945,
+      "final_train_acc": 1.0,
+      "final_test_acc": 1.0,
+      "grok_epoch": 2200,
+      "overfit_epoch": 700,
+      "delay": 1500
+    },
+    {
+      "hidden_dim": 128,
+      "num_params": 53985,
+      "final_train_acc": 1.0,
+      "final_test_acc": 1.0,
+      "grok_epoch": 2300,
+      "overfit_epoch": 350,
+      "delay": 1950
+    },
+    {
+      "hidden_dim": 256,
+      "num_params": 140641,
+      "final_train_acc": 1.0,
+      "final_test_acc": 1.0,
+      "grok_epoch": 2150,
+      "overfit_epoch": 200,
+      "delay": 1950
+    },
+    {
+      "hidden_dim": 512,
+      "num_params": 412257,
+      "final_train_acc": 1.0,
+      "final_test_acc": 1.0,
+      "grok_epoch": 1950,
+      "overfit_epoch": 150,
+      "delay": 1800
+    }
+  ],
+  "Operations": [
+    {
+      "operation": "add",
+      "final_train_acc": 1.0,
+      "final_test_acc": 1.0,
+      "grok_epoch": 2300,
+      "overfit_epoch": 350,
+      "delay": 1950
+    },
+    {
+      "operation": "subtract",
+      "final_train_acc": 1.0,
+      "final_test_acc": 1.0,
+      "grok_epoch": 2250,
+      "overfit_epoch": 350,
+      "delay": 1900
+    },
+    {
+      "operation": "multiply",
+      "final_train_acc": 1.0,
+      "final_test_acc": 1.0,
+      "grok_epoch": 2000,
+      "overfit_epoch": 350,
+      "delay": 1650
+    }
+  ],
+  "Data Fraction": [
+    {
+      "train_fraction": 0.3,
+      "train_size": 2822,
+      "final_train_acc": 1.0,
+      "final_test_acc": 0.0018217700999230146,
+      "grok_epoch": null,
+      "overfit_epoch": 300,
+      "delay": null
+    },
+    {
+      "train_fraction": 0.5,
+      "train_size": 4704,
+      "final_train_acc": 1.0,
+      "final_test_acc": 0.999787449836731,
+      "grok_epoch": 2200,
+      "overfit_epoch": 350,
+      "delay": 1850
+    },
+    {
+      "train_fraction": 0.7,
+      "train_size": 6586,
+      "final_train_acc": 1.0,
+      "final_test_acc": 1.0,
+      "grok_epoch": 950,
+      "overfit_epoch": 300,
+      "delay": 650
+    },
+    {
+      "train_fraction": 0.9,
+      "train_size": 8468,
+      "final_train_acc": 1.0,
+      "final_test_acc": 1.0,
+      "grok_epoch": 450,
+      "overfit_epoch": 250,
+      "delay": 200
+    }
+  ]
+}
