@@ -32,8 +32,12 @@ The goal is empirical characterization rather than proposing a definitive mechan
 
 ## Quick Start
 
-### Requirements
+### Setup the Project
 ```bash
+git clone https://github.com/AgentTorch/psi.git
+cd psi 
+python -m venv venv 
+source venv/bin/activate 
 pip install -r requirements.txt
 ```
 
