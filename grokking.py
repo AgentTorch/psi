@@ -291,7 +291,7 @@ if __name__ == '__main__':
     # Config
     p = 97
     hidden_dim = 128
-    epochs = 5000
+    epochs = 10000 #5000
     
     print(f'\nConfig:')
     print(f'  Modulus: {p}')
