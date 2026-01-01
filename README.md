@@ -1,6 +1,6 @@
 # Grokking in Neural Networks
 
-This repository reproduces and analyzes the **grokking** phenomenon—delayed generalization in neural networks—on small algorithmic datasets, following and extending the modular arithmetic experiments introduced by Power et al. (2022).
+This repository studies the **grokking** phenomenon of delayed generalization in neural networks on small algorithmic datasets, following and extending the modular arithmetic experiments introduced by Power et al. (2022).
 
 The project provides:
 - a minimal, reproducible baseline experiment that exhibits grokking, and  
@@ -89,6 +89,8 @@ Outputs:
 ## Analysis Notes
 
 A detailed discussion of the sensitivity analyses and interpretations of grokking dynamics—covering regularization strength, model size, task variation, and data coverage—is provided in [commentary.md](./commentary.md). This document serves as a companion analysis for readers interested in the underlying learning dynamics beyond code execution and reproduction.
+
+---
 
 ## Key Observations
 
