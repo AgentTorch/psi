@@ -1,6 +1,7 @@
 # Experiment and Analysis for Grokking in Neural Networks
 
 **Author:** Ayush Chopra (ayushc@mit.edu), 1 January 2026
+
 **Code:** github.com/AgentTorch/psi
 
 ---
