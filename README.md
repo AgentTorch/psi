@@ -46,8 +46,18 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Run
-
+## Single Experiment
 ```bash
-python grokking_simple_test.py
+python grokking.py
 ```
+Runs a baseline experiment with default settings (p=97, hidden_dim=128, weight_decay=1.0).
+
+## Sensitivity Analysis
+```bash
+python sweeps.py
+```
+Runs 4 comprehensive sweeps:
+1. **Weight Decay**: [0.0, 0.1, 0.5, 1.0, 2.0, 5.0]
+2. **Model Size**: [32, 64, 128, 256, 512] hidden dims
+3. **Operations**: [add, subtract, multiply]
+4. **Data Fraction**: [0.3, 0.5, 0.7, 0.9] training split
