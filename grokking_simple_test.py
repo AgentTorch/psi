@@ -124,7 +124,7 @@ def train(model, train_data, test_data, epochs=30000, lr=1e-3, wd=1.0):
 # 4. VISUALIZATION
 # ============================================================================
 
-def plot_results(log):
+def plot_results(log, id_str='7000'):
     """Plot grokking phenomenon"""
     fig, axes = plt.subplots(2, 2, figsize=(12, 8))
     
@@ -165,7 +165,7 @@ def plot_results(log):
     axes[1, 1].grid(alpha=0.3)
     
     plt.tight_layout()
-    plt.savefig('grokking_results.png', dpi=150)
+    plt.savefig(f'grokking_results_{id_str}.png'.format(id_str), dpi=150)
     print('\nPlot saved: grokking_results.png')
     plt.show()
 
@@ -212,7 +212,7 @@ if __name__ == '__main__':
     # Config
     p = 97
     hidden_dim = 128
-    epochs = 4500 #30000
+    epochs = 9000 #30000
     
     print('='*50)
     print('GROKKING: Modular Arithmetic')
@@ -239,6 +239,6 @@ if __name__ == '__main__':
     analyze(log)
     
     # Plot
-    plot_results(log)
+    plot_results(log, id_str=f'{epochs}')
     
     print('Done!')
