@@ -8,21 +8,13 @@
 
 ## Experimental Setup and Design Choices
 
-This experiment investigates the grokking phenomenon of delayed generalization in neural networks using modular arithmetic as the algorithmic task. We focus on modular addition, defined as  
-\[
-f(a,b) = (a + b) \bmod 97,
-\]
-because it provides a clean, well-defined learning problem with a simple underlying rule and a finite input space.
+This experiment investigates the grokking phenomenon of delayed generalization in neural networks using modular arithmetic as the algorithmic task. We focus on modular addition, defined as f(a, b) = (a + b) mod 97, because it provides a clean, well-defined learning problem with a simple underlying rule and a finite input space.
 
-The dataset consists of all 9,409 possible input pairs \((a,b)\), where \(a,b \in \{0,\dots,96\}\). Each input is one-hot encoded into a 194-dimensional vector, and the target is a 97-class label. Unless otherwise noted, we use a 50/50 train-test split, which creates a deliberately challenging generalization setting: the model can easily interpolate the training set but must discover the underlying rule to generalize.
+The dataset consists of all 9,409 possible input pairs (a, b) where a, b ∈ {0, 1, ..., 96}. Each input pair is represented by concatenating two one-hot vectors, one encoding a and one encoding b, resulting in a 194-dimensional input vector. The target is a 97-class label corresponding to (a + b) mod 97. Unless otherwise noted, we use a 50/50 train-test split, which creates a deliberately challenging generalization setting. In this setting, the model can easily interpolate the training set but must discover the underlying rule in order to generalize.
 
-Our model is a multilayer perceptron (MLP) with **two hidden layers**, using the architecture  
-\[
-194 \rightarrow 128 \rightarrow 128 \rightarrow 97,
-\]
-with ReLU activations. This network has approximately 54,000 parameters and is intentionally overparameterized relative to the task complexity. Overparameterization facilitates memorization, which is necessary to observe the separation between early fitting and delayed generalization that characterizes grokking.
+Our model is a multilayer perceptron (MLP) with **two hidden layers**, using the architecture  194 → 128 → 128 → 97 with ReLU activations. This network has approximately 54,000 parameters and is intentionally overparameterized relative to the task complexity. Overparameterization facilitates memorization, which is necessary to observe the separation between early fitting and delayed generalization that characterizes grokking.
 
-We train using the AdamW optimizer with learning rate \(10^{-3}\) and weight decay 1.0, optimizing cross-entropy loss. Because the dataset is small, we use **full-batch training**, which removes stochastic gradient noise and allows clearer measurement of learning dynamics and transition times. All models are trained for far more epochs than required to achieve perfect training accuracy—typically 5,000 to 10,000 epochs—so that delayed generalization can be observed if it occurs.
+We train using the AdamW optimizer with learning rate 1e-3 and weight decay 1.0, optimizing cross-entropy loss. Because the dataset is small, we use **full-batch training**, which removes stochastic gradient noise and allows clearer measurement of learning dynamics and transition times. All models are trained for far more epochs than required to achieve perfect training accuracy—typically 5,000 to 10,000 epochs—so that delayed generalization can be observed if it occurs.
 
 We log training and test accuracy, training and test loss, and the global L2 norm of the model parameters every 50 epochs. As a result, reported “overfitting” and “grokking” epochs correspond to the **first logged epoch** at which a threshold is crossed, with a temporal resolution of 50 epochs.
 
