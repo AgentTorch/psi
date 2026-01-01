@@ -1,5 +1,3 @@
-# Ψ (Psi)
-
 Experiments in neural network generalization and learning dynamics.
 
 ## Experiment 1: Grokking
