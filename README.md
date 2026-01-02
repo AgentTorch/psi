@@ -1,145 +1,79 @@
-# Grokking in Neural Networks
+# Grokking: Extended Analysis
 
-This repository studies the **grokking** phenomenon of delayed generalization in neural networks on small algorithmic datasets, following and extending the modular arithmetic experiments introduced by Power et al. (2022).
+This branch contains extended analysis of the grokking phenomenon in neural networks, focusing on weight decay, activation norms, and sparsity patterns during training.
 
-The project provides:
-- a minimal, reproducible baseline experiment that exhibits grokking, and  
-- a set of controlled sensitivity analyses probing how grokking depends on regularization, model capacity, task type, and training data size.
+## Key Insights
 
-The goal is empirical characterization rather than proposing a definitive mechanistic explanation.
+### 1. Adam vs AdamW: Weight Decay is Essential
 
----
+**Finding:** Weight decay on parameters is essential—not just for generalization, but even for memorization.
 
-## Overview
+Training with vanilla Adam (no weight decay) fails to achieve either memorization or grokking. The model simply does not learn the task. This suggests that weight decay plays a regularizing role that is fundamental to the optimization landscape, not merely a generalization trick applied post-memorization.
 
-**Task**
-- Modular arithmetic (e.g., `(a + b) mod 97`)
-- Full input space: all 9,409 ordered pairs
-- One-hot encoded inputs
-
-**Model**
-- MLP with two hidden layers  
-  `(194 → H → H → 97)`
-- ReLU activations
-- AdamW optimizer with explicit weight decay
-
-**Key Phenomenon**
-- Rapid memorization (perfect train accuracy, chance test accuracy)
-- Prolonged plateau with no apparent progress
-- Sudden transition to perfect generalization (grokking)
+**Implication:** Weight decay should be considered a core component of the training dynamics, not an optional regularizer.
 
 ---
 
-## Quick Start
+### 2. Norm Decay During Grokking: Capacity-Dependent Patterns
 
-### Setup the Project
-```bash
-git clone https://github.com/AgentTorch/psi.git
-cd psi 
-python -m venv venv 
-source venv/bin/activate 
-pip install -r requirements.txt
-```
+**Finding:** The commonly observed pattern of activation norm decay during grokking is **not universal**—it depends on model capacity.
 
-### Run Baseline Experiment
-```bash
-python grokking.py
-```
+| Hidden Dim | Memorization Speed | Norm Behavior Post-Memorization |
+|------------|-------------------|--------------------------------|
+| 32         | Slower            | Median activation **increased** |
+| 128        | Faster            | Median activation **decreased** |
 
-Runs modular addition with default settings:
-- `hidden_dim = 128`
-- `weight_decay = 1.0`
-- `train/test split = 50% / 50%`
-- `epochs = 5000`
+For smaller models (32-dim hidden), the median activation value actually *increases* during the grokking phase after memorization. Larger models (128-dim) show the expected decrease. This suggests that the internal representations learned during grokking differ qualitatively based on available capacity.
 
-Outputs:
-- `results/plots/baseline.png`
-- `results/logs/baseline.json`
-
-Expected behavior:
-- Training accuracy reaches ~100% early
-- Test accuracy remains near chance
-- Grokking transition occurs after ~2000 epochs
+**Implication:** Theories of grokking that rely on norm compression may not generalize across model scales.
 
 ---
 
-## Sensitivity Analysis
+### 3. Sparsity Analysis: Uniform Shrinkage, Not Increased Sparsity
 
-### Run All Sweeps
-```bash
-python sweeps.py
-```
+**Finding:** Sparsity does **not** decrease during grokking. Instead, we observe uniform shrinkage in model weights.
 
-Runs four controlled sweeps:
+Contrary to the hypothesis that grokking involves pruning away unnecessary connections (increasing sparsity), our analysis shows:
+- Weight magnitudes shrink uniformly across the network
+- The fraction of "near-zero" weights remains relatively stable
+- Circuit size evolution shows compression without selective pruning
 
-1. **Weight Decay**  
-   `[0.0, 0.1, 0.5, 1.0, 2.0, 5.0]`
+We provide visualizations of:
+- Activation sparsity over training
+- Weight sparsity evolution
+- Circuit size dynamics
 
-2. **Model Size (hidden units)**  
-   `[32, 64, 128, 256, 512]`
-
-3. **Operation Type**  
-   `add`, `subtract`, `multiply` (mod 97)
-
-4. **Training Data Fraction**  
-   `[0.3, 0.5, 0.7, 0.9]`
-
-Outputs:
-- Per-sweep plots in `results/plots/`
-- Aggregated metrics in `results/summary.json`
+**Implication:** Grokking may be better characterized as "weight compression" rather than "sparse circuit discovery."
 
 ---
 
-## Analysis Notes
-
-A detailed discussion of the sensitivity analyses and interpretations of grokking dynamics—covering regularization strength, model size, task variation, and data coverage—is provided in [commentary.md](./commentary.md). This document serves as a companion analysis for readers interested in the underlying learning dynamics beyond code execution and reproduction.
-
----
-
-## Key Observations
-
-- **Regularization dependence**  
-  Grokking is only observed above a threshold level of weight decay within the training horizon.
-
-- **Model capacity**  
-  Larger models memorize much faster, but grok on a similar absolute timescale, increasing the delay between memorization and generalization.
-
-- **Task robustness**  
-  Grokking occurs across modular addition, subtraction, and multiplication.
-
-- **Data threshold**  
-  Below a minimum training fraction, models memorize but fail to grok despite strong regularization.
-
----
-
-## Project Structure
+## Repository Structure
 
 ```
-├── grokking.py        # Core experiment: data, model, training loop
-├── sweeps.py          # Sensitivity analyses
+├── grokking.py           # Main training script
+├── sparsity_analysis.py  # Sparsity measurement and visualization
+├── sparsity_expt.py      # Sparsity experiment runner
+├── checkpoints/          # Model checkpoints at various epochs
 ├── results/
-│   ├── logs/          # JSON logs from runs
-│   ├── plots/         # Generated figures
-│   └── summary.json   # Aggregated sweep results
-└── README.md
+│   ├── logs/             # Training logs for different configurations
+│   ├── plots/            # Training curves and sweep comparisons
+│   └── sparsity*/        # Sparsity analysis outputs by model size
+└── analyze/              # Additional analysis scripts
 ```
 
----
+## Usage
 
-## Relation to Prior Work
+```bash
+# Run base grokking experiment
+python grokking.py
 
-This repository reproduces the grokking phenomenon introduced in:
+# Run sparsity analysis on checkpoints
+python sparsity_analysis.py
 
-> Power, A., Burda, Y., Edwards, H., Babuschkin, I., & Misra, V.  
-> **Grokking: Generalization Beyond Overfitting on Small Algorithmic Datasets**  
-> arXiv:2201.02177
+# Run sparsity experiments across model sizes
+python sparsity_expt.py
+```
 
-The analyses here focus on characterizing when grokking occurs and how its timing depends on key experimental factors, rather than providing a definitive mechanistic explanation.
+## Requirements
 
----
-
-## Notes
-
-- All experiments use a fixed random seed for controlled comparisons.
-- Metrics are logged every 50 epochs.
-- Grokking times are scoped to the training horizon and configurations used in this repository.
+See `requirements.txt`. Core dependencies: PyTorch, matplotlib, numpy.
