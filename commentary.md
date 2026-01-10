@@ -2,7 +2,7 @@
 
 **Author:** Ayush Chopra (ayushc@mit.edu), 1 January 2026
 
-**Code:** github.com/AgentTorch/psi
+**Code:** github.com/AgentTorch/grokking
 
 ---
 
